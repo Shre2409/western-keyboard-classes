@@ -97,11 +97,11 @@ export default function Home() {
               </a>
 
               <Link
-                href="/dashboard"
-                className="rounded-xl bg-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-lg hover:bg-blue-700"
-              >
-                Open Dashboard
-              </Link>
+  href="/login"
+  className="rounded-xl bg-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-lg hover:bg-blue-700"
+>
+  Login
+</Link>
             </div>
 
             <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
