@@ -11,32 +11,42 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function checkAccess() {
-      // Get current logged-in user
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
+      try {
+        // Get logged-in user
+        const {
+          data: { user },
+          error: userError,
+        } = await supabase.auth.getUser()
 
-      // If not logged in, go to login page
-      if (!user) {
-        router.push('/login')
-        return
+        if (userError || !user) {
+          router.replace('/login')
+          return
+        }
+
+        // Get user profile
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .single()
+
+        // If profile missing or role is not teacher, redirect
+        if (profileError || !profile) {
+          router.replace('/login')
+          return
+        }
+
+        if (profile.role !== 'teacher') {
+          router.replace('/student-dashboard')
+          return
+        }
+
+        // Access granted
+        setLoading(false)
+      } catch (error) {
+        console.error('Dashboard access error:', error)
+        router.replace('/login')
       }
-
-      // Get role from profiles table
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', user.id)
-        .single()
-
-      // If not a teacher, send to student dashboard
-      if (profile?.role !== 'teacher') {
-        router.push('/student-dashboard')
-        return
-      }
-
-      // Teacher is allowed
-      setLoading(false)
     }
 
     checkAccess()
@@ -45,7 +55,7 @@ export default function Dashboard() {
   if (loading) {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
+        <p className="text-lg">Loading...</p>
       </main>
     )
   }
