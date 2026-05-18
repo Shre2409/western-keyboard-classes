@@ -209,7 +209,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-gray-200 bg-white py-8">
         <div className="mx-auto max-w-7xl px-6 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} Western Keyboard Classes. All rights reserved.
+           © 2026 Western Keyboard Classes. All rights reserved.
         </div>
       </footer>
     </main>
