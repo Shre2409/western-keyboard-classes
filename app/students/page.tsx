@@ -464,18 +464,7 @@ export default function StudentsPage() {
   className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900"
 />
 
-              <input
-                type="email"
-                placeholder="Email Address"
-                value={form.email}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    email: e.target.value,
-                  })
-                }
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900"
-              />
+              
 
               <select
                 value={form.course}
